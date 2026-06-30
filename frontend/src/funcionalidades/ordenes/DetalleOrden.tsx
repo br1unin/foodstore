@@ -74,11 +74,31 @@ export function DetalleOrden({ ordenId }: { ordenId: number }) {
             ))}
           </div>
 
-          <div className="mt-4 flex justify-between border-t border-gray-100 pt-4 text-lg font-bold">
-            <span>Total</span>
-            <span className="text-primario-600">
-              {formatearMoneda(orden.total)}
-            </span>
+          <div className="mt-4 space-y-2 border-t border-gray-100 pt-4">
+            {orden.costo_envio > 0 && (
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Subtotal</span>
+                <span>{formatearMoneda(orden.subtotal)}</span>
+              </div>
+            )}
+            {orden.descuento > 0 && (
+              <div className="flex justify-between text-sm text-green-600">
+                <span>Descuento</span>
+                <span>− {formatearMoneda(orden.descuento)}</span>
+              </div>
+            )}
+            {orden.costo_envio > 0 && (
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Envío</span>
+                <span>{formatearMoneda(orden.costo_envio)}</span>
+              </div>
+            )}
+            <div className="flex justify-between text-lg font-bold border-t border-gray-100 pt-2">
+              <span>Total</span>
+              <span className="text-primario-600">
+                {formatearMoneda(orden.total)}
+              </span>
+            </div>
           </div>
 
           {puedeCancelar && (

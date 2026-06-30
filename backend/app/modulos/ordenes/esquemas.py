@@ -28,16 +28,16 @@ class RespuestaPartida(BaseModel):
     titulo_capturado: str
     precio_capturado: Decimal
     unidades: int
-    subtotal_snap: Decimal
+    importe_parcial: Decimal
     componentes_excluidos: list[str] = []
 
 class RespuestaBitacora(BaseModel):
     id: int
     estado_previo: Optional[str] = None
-    estado_siguiente: str
+    estado: str
     ejecutado_por: int
-    comentario: Optional[str] = None
-    registrado_en: datetime
+    nota: Optional[str] = None
+    registrada_en: datetime
 
 class DomicilioOrden(BaseModel):
     id: int
@@ -48,9 +48,10 @@ class DomicilioOrden(BaseModel):
 
 class CobroOrden(BaseModel):
     id: int
-    estado_cobro: str
+    estado: str
     monto: Decimal
     medio: Optional[str] = None
+    preferencia_id: Optional[str] = None
 
 class RespuestaOrden(BaseModel):
     id: int

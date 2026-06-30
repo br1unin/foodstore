@@ -10,7 +10,7 @@ inicializarMP()
 interface Props {
   ordenId: number
   monto: number
-  onExito: () => void
+  onExito: (idPago?: string) => void
   onError: (msg: string) => void
 }
 
@@ -51,7 +51,7 @@ export function CardPaymentMP({ ordenId, monto, onExito, onError }: Props) {
       })
 
       if (resultado.estado === "approved") {
-        onExito()
+        onExito(resultado.id_pago_mp)
       } else if (resultado.estado === "rejected") {
         onError(`Pago rechazado: ${resultado.detalle ?? "intentá con otra tarjeta"}`)
       } else {
@@ -71,7 +71,7 @@ export function CardPaymentMP({ ordenId, monto, onExito, onError }: Props) {
         <p className="mb-3 text-center text-sm text-gray-500">Procesando pago...</p>
       )}
       <CardPayment
-        initialization={{ amount: monto, payer: correo ? { email: correo } : undefined }}
+        initialization={{ amount: monto }}
         onSubmit={manejarSubmit}
         onReady={() => undefined}
         onError={(err) => onError(err?.message ?? "Error en el formulario de pago")}

@@ -176,7 +176,9 @@ class ServicioCobros:
                 cuerpo_pago["issuer_id"] = int(datos.issuer_id)
             except (ValueError, TypeError):
                 cuerpo_pago["issuer_id"] = datos.issuer_id
-        if not any(h in ajustes.url_api for h in ("localhost", "127.0.0.1")):
+        _es_api_local = any(h in ajustes.url_api for h in ("localhost", "127.0.0.1"))
+        _api_url_valida = ajustes.url_api.startswith("http") and "." in ajustes.url_api
+        if not _es_api_local and _api_url_valida:
             cuerpo_pago["notification_url"] = f"{ajustes.url_api}/api/v1/cobros/webhook"
 
         respuesta = sdk.payment().create(cuerpo_pago)

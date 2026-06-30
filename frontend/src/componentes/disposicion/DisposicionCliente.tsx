@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query"
 import { BarraNavegacion } from "./BarraNavegacion"
 import { Toasts } from "@/componentes/ui/Toasts"
+import { CajonCarrito } from "@/funcionalidades/carrito/CajonCarrito"
 import { sesionStore } from "@/almacenes/sesionStore"
 
 const _WS_BASE = (import.meta.env.VITE_URL_WS as string | undefined) ?? "ws://localhost:8000"
@@ -69,6 +70,7 @@ export function DisposicionCliente() {
         </div>
       </footer>
       <Toasts />
+      <CajonCarrito />
     </div>
   )
 }

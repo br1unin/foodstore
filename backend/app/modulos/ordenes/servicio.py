@@ -47,7 +47,7 @@ class ServicioOrdenes:
                     titulo_capturado=p.titulo_capturado,
                     precio_capturado=p.precio_capturado,
                     unidades=p.unidades,
-                    subtotal_snap=p.subtotal_snap,
+                    importe_parcial=p.subtotal_snap,
                     componentes_excluidos=excluidos,
                 )
             )
@@ -55,10 +55,10 @@ class ServicioOrdenes:
             RespuestaBitacora(
                 id=b.id,
                 estado_previo=b.estado_previo,
-                estado_siguiente=b.estado_siguiente,
+                estado=b.estado_siguiente,
                 ejecutado_por=b.ejecutado_por,
-                comentario=b.comentario,
-                registrado_en=b.registrado_en,
+                nota=b.comentario,
+                registrada_en=b.registrado_en,
             )
             for b in self.repositorio.bitacora_de(orden.id)
         ]
@@ -78,9 +78,10 @@ class ServicioOrdenes:
         cobro_dto = (
             CobroOrden(
                 id=cobro.id,
-                estado_cobro=cobro.estado_cobro,
+                estado=cobro.estado_cobro,
                 monto=cobro.monto,
                 medio=cobro.medio,
+                preferencia_id=cobro.id_preferencia_mp,
             )
             if cobro
             else None
@@ -267,10 +268,10 @@ class ServicioOrdenes:
             RespuestaBitacora(
                 id=b.id,
                 estado_previo=b.estado_previo,
-                estado_siguiente=b.estado_siguiente,
+                estado=b.estado_siguiente,
                 ejecutado_por=b.ejecutado_por,
-                comentario=b.comentario,
-                registrado_en=b.registrado_en,
+                nota=b.comentario,
+                registrada_en=b.registrado_en,
             )
             for b in self.repositorio.bitacora_de(orden_id)
         ]

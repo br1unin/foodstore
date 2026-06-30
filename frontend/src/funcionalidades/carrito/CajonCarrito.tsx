@@ -1,10 +1,12 @@
 import { ShoppingCart, UtensilsCrossed, X } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import { carritoStore } from "@/almacenes/carritoStore"
 import { Boton } from "@/componentes/ui/Boton"
 import { ElementoCarrito } from "./ElementoCarrito"
 import { formatearMoneda } from "@/lib/formato"
 
 export function CajonCarrito() {
+  const navigate = useNavigate()
   const estaAbierto = carritoStore((s) => s.estaAbierto)
   const elementos = carritoStore((s) => s.elementos)
   const cerrarCarrito = carritoStore((s) => s.cerrarCarrito)
@@ -15,7 +17,7 @@ export function CajonCarrito() {
 
   const irAlCarrito = () => {
     cerrarCarrito()
-    window.location.assign("/carrito")
+    navigate("/carrito")
   }
 
   return (

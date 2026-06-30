@@ -85,7 +85,7 @@ export function FormularioPago() {
           <CardPaymentMP
             ordenId={ordenId}
             monto={totalOrden}
-            onExito={() => navigate(`/mis-ordenes/${ordenId}`)}
+            onExito={(idPago) => navigate(`/pago/exito?external_reference=${ordenId}${idPago ? `&payment_id=${idPago}` : ""}`)}
             onError={(msg) => setErrorPago(msg)}
           />
         ) : procesando || !preferenciaId || !ordenId ? (

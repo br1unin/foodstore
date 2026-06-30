@@ -40,10 +40,17 @@ def crear_preferencia(items: list[dict[str, Any]], referencia: str) -> dict[str,
             "pending": f"{ajustes.url_frontend}/pago/pendiente",
         }
         cuerpo["auto_return"] = "approved"
-    if "localhost" not in ajustes.url_api and "127.0.0.1" not in ajustes.url_api:
+    _es_api_local = any(h in ajustes.url_api for h in ("localhost", "127.0.0.1"))
+    _api_url_valida = ajustes.url_api.startswith("http") and "." in ajustes.url_api
+    if not _es_api_local and _api_url_valida:
         cuerpo["notification_url"] = f"{ajustes.url_api}/api/v1/cobros/webhook"
     respuesta = cliente.preference().create(cuerpo)
+    codigo = respuesta.get("status")
     datos = respuesta.get("response", {})
+    if codigo not in {200, 201} or not datos.get("id"):
+        from fastapi import HTTPException, status as http_status
+        detalle = datos.get("message") or datos.get("error") or "Error al crear preferencia en MercadoPago"
+        raise HTTPException(status_code=http_status.HTTP_502_BAD_GATEWAY, detail=detalle)
     return {
         "id": datos.get("id"),
         "init_point": datos.get("init_point"),

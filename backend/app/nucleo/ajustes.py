@@ -5,7 +5,7 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-_RAIZ = Path(__file__).resolve().parent.parent.parent
+_RAIZ = Path(__file__).resolve().parent.parent.parent.parent
 
 class Ajustes(BaseSettings):
 
