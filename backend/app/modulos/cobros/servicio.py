@@ -183,13 +183,9 @@ class ServicioCobros:
         if not any(h in ajustes.url_api for h in ("localhost", "127.0.0.1")):
             cuerpo_pago["notification_url"] = f"{ajustes.url_api}/api/v1/cobros/webhook"
 
-        print("=== MP pago_directo REQUEST ===", {k: v for k, v in cuerpo_pago.items() if k != "token"}, flush=True)
-
         respuesta = sdk.payment().create(cuerpo_pago)
         datos_resp = respuesta.get("response", {})
         codigo = respuesta.get("status")
-
-        print(f"=== MP pago_directo RESPONSE status={codigo} body={datos_resp} ===", flush=True)
 
         if codigo not in {200, 201}:
             causa = datos_resp.get("cause", [])

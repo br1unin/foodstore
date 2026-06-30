@@ -7,9 +7,10 @@ inicializarMP()
 interface Props {
   preferenciaId: string
   ordenId: number
+  onError?: (msg: string) => void
 }
 
-export function BrickPago({ preferenciaId, ordenId }: Props) {
+export function BrickPago({ preferenciaId, ordenId, onError }: Props) {
   if (!MP_CONFIGURADO) {
     return (
       <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-5 text-center text-sm text-yellow-800">
@@ -35,7 +36,7 @@ export function BrickPago({ preferenciaId, ordenId }: Props) {
       <Wallet
         initialization={{ preferenceId: preferenciaId, redirectMode: "self" }}
         onReady={() => undefined}
-        onError={(err) => console.error("MP Brick error:", err)}
+        onError={(err) => onError?.(err?.message ?? "Error al cargar MercadoPago")}
       />
     </div>
   )

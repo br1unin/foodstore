@@ -93,7 +93,7 @@ export function FormularioPago() {
         ) : procesando || !preferenciaId || !ordenId ? (
           <BrickPagoCargando />
         ) : (
-          <BrickPago preferenciaId={preferenciaId} ordenId={ordenId} />
+          <BrickPago preferenciaId={preferenciaId} ordenId={ordenId} onError={(msg) => setErrorPago(msg)} />
         )}
         <div className="text-center">
           <button

@@ -23,9 +23,11 @@ ESTADOS_PEDIDO = [
 ]
 
 FORMAS_PAGO = [
-    {"codigo": "MERCADOPAGO",   "descripcion": "MercadoPago Checkout PRO", "habilitada": True},
-    {"codigo": "EFECTIVO",      "descripcion": "Pago en efectivo",          "habilitada": True},
-    {"codigo": "TRANSFERENCIA", "descripcion": "Transferencia bancaria",    "habilitada": True},
+    {"codigo": "MERCADOPAGO",   "descripcion": "MercadoPago Checkout PRO",    "habilitada": True},
+    {"codigo": "MP_CARD",       "descripcion": "Tarjeta vía MercadoPago",     "habilitada": True},
+    {"codigo": "EFECTIVO",      "descripcion": "Pago en efectivo",             "habilitada": True},
+    {"codigo": "TARJETA",       "descripcion": "Tarjeta al recibir",           "habilitada": True},
+    {"codigo": "TRANSFERENCIA", "descripcion": "Transferencia bancaria",       "habilitada": True},
 ]
 
 UNIDADES_MEDIDA = [
