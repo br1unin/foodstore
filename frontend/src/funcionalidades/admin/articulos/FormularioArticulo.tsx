@@ -229,7 +229,7 @@ export function FormularioArticulo({
                             }
                             className="w-16 rounded border border-gray-300 px-1.5 py-0.5 text-xs focus:border-primario-500 focus:outline-none"
                           />
-                          <span className="text-xs text-gray-400">g</span>
+                          <span className="text-xs text-gray-400">{comp.unidad ?? "g"}</span>
                         </div>
                         <label className="flex cursor-pointer items-center gap-1 text-xs text-gray-500">
                           <input

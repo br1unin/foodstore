@@ -12,13 +12,21 @@ import {
   listarComponentes,
 } from "@/api/endpoints/catalogo"
 import { clavesConsulta } from "@/lib/clavesConsulta"
-import type { Componente } from "@/tipos/catalogo"
+import type { Componente, UnidadMedida } from "@/tipos/catalogo"
 import { type FormEvent } from "react"
+
+const UNIDADES: { valor: UnidadMedida; etiqueta: string }[] = [
+  { valor: "ml", etiqueta: "Mililitro (ml)" },
+  { valor: "l", etiqueta: "Litro (l)" },
+  { valor: "g", etiqueta: "Gramo (g)" },
+  { valor: "kg", etiqueta: "Kilogramo (kg)" },
+]
 
 interface DatosComponente {
   denominacion: string
   existencias: number
   precio_unitario: number
+  unidad: UnidadMedida
   genera_alergia: boolean
 }
 
@@ -36,6 +44,7 @@ function FormularioComponente({
   const [denominacion, setDenominacion] = useState(inicial?.denominacion ?? "")
   const [existencias, setExistencias] = useState(inicial?.existencias ?? 0)
   const [precioUnitario, setPrecioUnitario] = useState(inicial?.precio_unitario ?? 0)
+  const [unidad, setUnidad] = useState<UnidadMedida>(inicial?.unidad ?? "g")
   const [generaAlergia, setGeneraAlergia] = useState(inicial?.genera_alergia ?? false)
 
   const handleSubmit = (e: FormEvent) => {
@@ -45,6 +54,7 @@ function FormularioComponente({
       denominacion: denominacion.trim(),
       existencias,
       precio_unitario: precioUnitario,
+      unidad,
       genera_alergia: generaAlergia,
     })
   }
@@ -58,23 +68,42 @@ function FormularioComponente({
         placeholder="Ej: Queso cheddar"
         required
       />
-      <CampoTexto
-        etiqueta="Existencias (gramos)"
-        type="number"
-        name="existencias"
-        min="0"
-        value={String(existencias)}
-        onChange={(e) => setExistencias(Math.max(0, parseInt(e.target.value) || 0))}
-      />
-      <CampoTexto
-        etiqueta="Precio unitario (por gramo)"
-        type="number"
-        name="precio_unitario"
-        min="0"
-        step="0.01"
-        value={String(precioUnitario)}
-        onChange={(e) => setPrecioUnitario(Math.max(0, parseFloat(e.target.value) || 0))}
-      />
+
+      <div>
+        <label className="mb-1 block text-sm font-medium text-gray-700">
+          Unidad de medida
+        </label>
+        <select
+          value={unidad}
+          onChange={(e) => setUnidad(e.target.value as UnidadMedida)}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primario-500 focus:outline-none focus:ring-2 focus:ring-primario-500"
+        >
+          {UNIDADES.map((u) => (
+            <option key={u.valor} value={u.valor}>
+              {u.etiqueta}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <CampoTexto
+          etiqueta={`Existencias (${unidad})`}
+          type="number"
+          min="0"
+          value={String(existencias)}
+          onChange={(e) => setExistencias(Math.max(0, parseInt(e.target.value) || 0))}
+        />
+        <CampoTexto
+          etiqueta={`Precio por ${unidad}`}
+          type="number"
+          min="0"
+          step="0.01"
+          value={String(precioUnitario)}
+          onChange={(e) => setPrecioUnitario(Math.max(0, parseFloat(e.target.value) || 0))}
+        />
+      </div>
+
       <label className="flex items-center gap-2 text-sm text-gray-700">
         <input
           type="checkbox"
@@ -175,7 +204,7 @@ export function PaginaGestionComponentes() {
                   )}
                 </div>
                 <span className="text-xs text-gray-400">
-                  Stock: {comp.existencias} g · {formatearMoneda(comp.precio_unitario)}/g
+                  Stock: {comp.existencias} {comp.unidad} · {formatearMoneda(comp.precio_unitario)}/{comp.unidad}
                 </span>
               </div>
               <div className="flex gap-3">

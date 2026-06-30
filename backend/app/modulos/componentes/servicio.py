@@ -22,6 +22,8 @@ class ServicioComponentes:
             id=c.id,
             denominacion=c.denominacion,
             existencias=c.existencias,
+            precio_unitario=c.precio_unitario,
+            unidad=c.unidad,
             genera_alergia=c.genera_alergia,
         )
 

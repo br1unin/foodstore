@@ -58,11 +58,14 @@ export interface ParametrosArticulos {
   porPagina?: number
 }
 
+export type UnidadMedida = "ml" | "l" | "g" | "kg"
+
 export interface Componente {
   id: number
   denominacion: string
   existencias: number
   precio_unitario: number
+  unidad: UnidadMedida
   genera_alergia: boolean
 }
 
@@ -85,5 +88,7 @@ export interface EntradaCategoria {
 export interface EntradaComponente {
   denominacion: string
   existencias?: number
+  precio_unitario?: number
+  unidad?: UnidadMedida
   genera_alergia?: boolean
 }
