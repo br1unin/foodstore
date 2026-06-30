@@ -13,9 +13,7 @@ export function FormularioPerfil() {
 
   const manejarGuardar = (e: React.FormEvent) => {
     e.preventDefault()
-    // El backend no expone un endpoint de actualización de nombre en la
-    // especificación; actualizamos el estado local de la sesión.
-    if (cuenta && tokenAcceso && tokenRenovacion) {
+            if (cuenta && tokenAcceso && tokenRenovacion) {
       establecerSesion(
         { ...cuenta, nombre_completo: nombre },
         tokenAcceso,

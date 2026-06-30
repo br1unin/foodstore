@@ -1,4 +1,3 @@
-"""Repositorio del modulo de categorias."""
 from __future__ import annotations
 
 from typing import Optional
@@ -7,7 +6,6 @@ from sqlmodel import select
 
 from app.persistencia.base_repositorio import BaseRepositorio
 from app.persistencia.entidades.categoria import Categoria
-
 
 class RepositorioCategorias(BaseRepositorio[Categoria]):
     def listar(self) -> list[Categoria]:

@@ -34,8 +34,7 @@ export function PaginaTablero() {
   const ingresos = useIngresosPorMedio()
   const { ultimoEvento } = useConexionWS("admin")
 
-  // Refrescar métricas ante eventos de tiempo real
-  useEffect(() => {
+    useEffect(() => {
     if (!ultimoEvento) return
     cliente.invalidateQueries({ queryKey: ["metricas"] })
     cliente.invalidateQueries({ queryKey: ["ordenes", "todas"] })

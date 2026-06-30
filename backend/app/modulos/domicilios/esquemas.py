@@ -1,10 +1,8 @@
-"""Esquemas del modulo de domicilios."""
 from __future__ import annotations
 
 from typing import Optional
 
 from pydantic import BaseModel, Field
-
 
 class DomicilioEntrada(BaseModel):
     via: str = Field(min_length=1, max_length=200)
@@ -13,7 +11,6 @@ class DomicilioEntrada(BaseModel):
     provincia: str = Field(min_length=1, max_length=100)
     codigo_postal: Optional[str] = Field(default=None, max_length=20)
     es_predeterminado: bool = False
-
 
 class DomicilioSalida(BaseModel):
     id: int

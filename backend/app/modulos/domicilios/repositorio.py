@@ -1,4 +1,3 @@
-"""Repositorio del modulo de domicilios."""
 from __future__ import annotations
 
 from typing import Optional
@@ -7,7 +6,6 @@ from sqlmodel import select
 
 from app.persistencia.base_repositorio import BaseRepositorio
 from app.persistencia.entidades.domicilio import Domicilio
-
 
 class RepositorioDomicilios(BaseRepositorio[Domicilio]):
     def listar_por_cuenta(self, cuenta_id: int) -> list[Domicilio]:

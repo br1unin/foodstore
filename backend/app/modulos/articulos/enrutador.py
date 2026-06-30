@@ -1,4 +1,3 @@
-"""Enrutador del modulo de articulos."""
 from __future__ import annotations
 
 from typing import Optional
@@ -26,12 +25,10 @@ enrutador = APIRouter(prefix="/articulos", tags=["articulos"])
 _solo_admin = Depends(requerir_perfil("ADMINISTRADOR"))
 _gestion_stock = Depends(requerir_perfil("ADMINISTRADOR", "INVENTARIO"))
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioArticulos:
     return ServicioArticulos(RepositorioArticulos(gestor.sesion), gestor)
-
 
 @enrutador.get("", response_model=PaginaArticulos)
 def listar(
@@ -44,13 +41,11 @@ def listar(
 ) -> PaginaArticulos:
     return servicio.listar(categoria, disponible, q, pagina, por_pagina)
 
-
 @enrutador.get("/{articulo_id}", response_model=ArticuloDetalleSalida)
 def detalle(
     articulo_id: int, servicio: ServicioArticulos = Depends(obtener_servicio)
 ) -> ArticuloDetalleSalida:
     return servicio.detalle(articulo_id)
-
 
 @enrutador.post(
     "", response_model=ArticuloDetalleSalida, status_code=status.HTTP_201_CREATED,
@@ -66,7 +61,6 @@ async def crear(
     await gestor_conexiones.difundir("ordenes", _MSG_CATALOGO)
     return resultado
 
-
 @enrutador.put("/{articulo_id}", response_model=ArticuloDetalleSalida, dependencies=[_solo_admin])
 async def actualizar(
     articulo_id: int,
@@ -79,7 +73,6 @@ async def actualizar(
     await gestor_conexiones.difundir("ordenes", _MSG_CATALOGO)
     return resultado
 
-
 @enrutador.delete(
     "/{articulo_id}", status_code=status.HTTP_204_NO_CONTENT, dependencies=[_solo_admin]
 )
@@ -91,7 +84,6 @@ async def eliminar(
     with gestor:
         servicio.eliminar(articulo_id)
     await gestor_conexiones.difundir("ordenes", _MSG_CATALOGO)
-
 
 @enrutador.patch(
     "/{articulo_id}/existencias", response_model=ArticuloListaSalida,
@@ -108,7 +100,6 @@ async def actualizar_existencias(
     await gestor_conexiones.difundir("ordenes", _MSG_CATALOGO)
     return resultado
 
-
 @enrutador.post(
     "/{articulo_id}/galeria", response_model=ImagenGaleria,
     status_code=status.HTTP_201_CREATED, dependencies=[_solo_admin],
@@ -121,7 +112,6 @@ def subir_imagen(
     servicio: ServicioArticulos = Depends(obtener_servicio),
 ) -> ImagenGaleria:
     return servicio.agregar_imagen(articulo_id, url_imagen, id_cdn, posicion)
-
 
 @enrutador.delete(
     "/{articulo_id}/galeria/{img_id}", status_code=status.HTTP_204_NO_CONTENT,

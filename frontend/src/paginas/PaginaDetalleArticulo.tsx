@@ -65,7 +65,7 @@ export function PaginaDetalleArticulo() {
       </Link>
 
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Galería */}
+        
         <div>
           <div className="aspect-square overflow-hidden rounded-2xl bg-gray-100">
             {imagenes[imagenActiva] ? (
@@ -99,7 +99,7 @@ export function PaginaDetalleArticulo() {
           )}
         </div>
 
-        {/* Información */}
+        
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold text-gray-900">

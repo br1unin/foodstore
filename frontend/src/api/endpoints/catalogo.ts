@@ -11,7 +11,6 @@ import type {
   CategoriaSalida,
 } from "@/tipos/catalogo"
 
-// --- Articulos ---
 export async function listarArticulos(
   params: ParametrosArticulos,
 ): Promise<RespuestaPaginada<ArticuloLista>> {
@@ -89,7 +88,6 @@ export async function eliminarImagenGaleria(
   await clienteHttp.delete(`/articulos/${id}/galeria/${imgId}`)
 }
 
-// --- Categorias ---
 export async function listarCategorias(): Promise<CategoriaSalida[]> {
   const { data } = await clienteHttp.get<CategoriaSalida[]>("/categorias")
   return data
@@ -112,7 +110,6 @@ export async function eliminarCategoria(id: number): Promise<void> {
   await clienteHttp.delete(`/categorias/${id}`)
 }
 
-// --- Componentes ---
 export async function listarComponentes(): Promise<Componente[]> {
   const { data } = await clienteHttp.get<Componente[]>("/componentes")
   return data

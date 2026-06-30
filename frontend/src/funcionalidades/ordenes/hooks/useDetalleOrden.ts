@@ -18,8 +18,7 @@ export function useCancelarOrden(id: number) {
   return useMutation({
     mutationFn: () => cancelarOrden(id),
 
-    // Optimistic update: muestra CANCELADO inmediatamente
-    onMutate: async () => {
+        onMutate: async () => {
       await cliente.cancelQueries({ queryKey: claveDetalle })
       const anterior = cliente.getQueryData<RespuestaOrden>(claveDetalle)
       if (anterior) {
@@ -31,8 +30,7 @@ export function useCancelarOrden(id: number) {
       return { anterior }
     },
 
-    // Si el servidor falla, revierte al estado anterior
-    onError: (_err, _vars, ctx) => {
+        onError: (_err, _vars, ctx) => {
       if (ctx?.anterior) {
         cliente.setQueryData(claveDetalle, ctx.anterior)
       }

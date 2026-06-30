@@ -1,4 +1,3 @@
-"""Esquemas del modulo de articulos."""
 from __future__ import annotations
 
 import math
@@ -7,12 +6,10 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-
 class ComposicionEntrada(BaseModel):
     componente_id: int
     extraible: bool = False
     cantidad_gramos: int = 0
-
 
 class ArticuloEntrada(BaseModel):
     titulo: str = Field(min_length=1, max_length=200)
@@ -24,28 +21,23 @@ class ArticuloEntrada(BaseModel):
     categorias: list[int] = []
     composicion: list[ComposicionEntrada] = []
 
-
 class ExistenciasEntrada(BaseModel):
     existencias: int = Field(ge=0)
-
 
 class CategoriaBasica(BaseModel):
     id: int
     nombre: str
-
 
 class ImagenGaleria(BaseModel):
     id: int
     url: str
     orden: int = 0
 
-
 class ComposicionItem(BaseModel):
     id: int
     denominacion: str
     extraible: bool
     cantidad_gramos: int = 0
-
 
 class ArticuloListaSalida(BaseModel):
     id: int
@@ -57,12 +49,10 @@ class ArticuloListaSalida(BaseModel):
     categorias: list[CategoriaBasica] = []
     imagen_principal: Optional[str] = None
 
-
 class ArticuloDetalleSalida(ArticuloListaSalida):
     descripcion: Optional[str] = None
     galeria: list[ImagenGaleria] = []
     composicion: list[ComposicionItem] = []
-
 
 class PaginaArticulos(BaseModel):
     total: int

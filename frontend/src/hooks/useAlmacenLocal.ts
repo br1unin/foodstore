@@ -17,8 +17,7 @@ export function useAlmacenLocal<T>(
     try {
       window.localStorage.setItem(clave, JSON.stringify(valor))
     } catch {
-      // ignorar errores de cuota / modo privado
-    }
+          }
   }, [clave, valor])
 
   const actualizar = useCallback(

@@ -56,7 +56,7 @@ export function TablaCuentas({
               <td className="px-4 py-3 font-medium">{cuenta.nombre_completo}</td>
               <td className="px-4 py-3 text-gray-500">{cuenta.correo}</td>
 
-              {/* Selector de roles inline */}
+              
               <td className="px-4 py-3">
                 {selectorAbierto === cuenta.id ? (
                   <div className="flex flex-wrap gap-1">
@@ -111,7 +111,7 @@ export function TablaCuentas({
                 )}
               </td>
 
-              {/* Estado habilitado/suspendido */}
+              
               <td className="px-4 py-3">
                 <Insignia
                   className={
@@ -124,7 +124,7 @@ export function TablaCuentas({
                 </Insignia>
               </td>
 
-              {/* Acciones */}
+              
               <td className="px-4 py-3">
                 <div className="flex gap-2">
                   <Boton

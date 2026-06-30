@@ -1,4 +1,3 @@
-"""Punto de entrada de la aplicacion Food Store API."""
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
@@ -26,17 +25,13 @@ from app.modulos.archivos.enrutador import enrutador as enrutador_archivos
 from app.modulos.metricas.enrutador import enrutador as enrutador_metricas
 from app.modulos.tiempo_real.enrutador import enrutador as enrutador_tiempo_real
 
-
 @asynccontextmanager
 async def ciclo_vida(_: FastAPI):
-    """Inicializa esquema y datos base al arrancar la aplicacion."""
     crear_tablas()
     ejecutar_carga_inicial()
     yield
 
-
 def crear_aplicacion() -> FastAPI:
-    """Construye y configura la instancia de FastAPI."""
     aplicacion = FastAPI(
         title=ajustes.nombre_app,
         version=ajustes.version,
@@ -82,6 +77,5 @@ def crear_aplicacion() -> FastAPI:
         return {"estado": "operativo"}
 
     return aplicacion
-
 
 aplicacion = crear_aplicacion()

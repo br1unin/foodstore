@@ -1,4 +1,3 @@
-"""Enrutador del modulo de componentes."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, status
@@ -14,12 +13,10 @@ enrutador = APIRouter(prefix="/componentes", tags=["componentes"])
 _gestion = Depends(requerir_perfil("ADMINISTRADOR", "INVENTARIO"))
 _solo_admin = Depends(requerir_perfil("ADMINISTRADOR"))
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioComponentes:
     return ServicioComponentes(RepositorioComponentes(gestor.sesion), gestor)
-
 
 @enrutador.get(
     "", response_model=list[ComponenteSalida],
@@ -29,7 +26,6 @@ def listar(
     servicio: ServicioComponentes = Depends(obtener_servicio),
 ) -> list[ComponenteSalida]:
     return servicio.listar()
-
 
 @enrutador.post(
     "", response_model=ComponenteSalida, status_code=status.HTTP_201_CREATED,
@@ -41,7 +37,6 @@ def crear(
 ) -> ComponenteSalida:
     return servicio.crear(datos)
 
-
 @enrutador.put(
     "/{componente_id}", response_model=ComponenteSalida, dependencies=[_gestion]
 )
@@ -51,7 +46,6 @@ def actualizar(
     servicio: ServicioComponentes = Depends(obtener_servicio),
 ) -> ComponenteSalida:
     return servicio.actualizar(componente_id, datos)
-
 
 @enrutador.delete(
     "/{componente_id}", status_code=status.HTTP_204_NO_CONTENT,

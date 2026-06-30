@@ -1,4 +1,3 @@
-"""Servicio del modulo de componentes."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,7 +8,6 @@ from app.modulos.componentes.esquemas import ComponenteEntrada, ComponenteSalida
 from app.modulos.componentes.repositorio import RepositorioComponentes
 from app.persistencia.entidades.componente import Componente
 from app.persistencia.sesion_trabajo import GestorTransaccion
-
 
 class ServicioComponentes:
     def __init__(self, repositorio: RepositorioComponentes, gestor: GestorTransaccion) -> None:

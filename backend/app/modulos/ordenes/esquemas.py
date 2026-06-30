@@ -1,4 +1,3 @@
-"""Esquemas del modulo de ordenes."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -7,12 +6,10 @@ from typing import Optional
 
 from pydantic import BaseModel, Field
 
-
 class PartidaEntrada(BaseModel):
     articulo_id: int
     unidades: int = Field(gt=0)
     componentes_a_excluir: list[int] = []
-
 
 class CrearOrdenEntrada(BaseModel):
     domicilio_id: Optional[int] = None
@@ -21,11 +18,9 @@ class CrearOrdenEntrada(BaseModel):
     partidas: list[PartidaEntrada] = Field(min_length=1)
     observaciones: Optional[str] = Field(default=None, max_length=500)
 
-
 class CambioEstadoEntrada(BaseModel):
     estado_nuevo: str
     comentario: Optional[str] = Field(default=None, max_length=500)
-
 
 class RespuestaPartida(BaseModel):
     id: int
@@ -36,7 +31,6 @@ class RespuestaPartida(BaseModel):
     subtotal_snap: Decimal
     componentes_excluidos: list[str] = []
 
-
 class RespuestaBitacora(BaseModel):
     id: int
     estado_previo: Optional[str] = None
@@ -45,7 +39,6 @@ class RespuestaBitacora(BaseModel):
     comentario: Optional[str] = None
     registrado_en: datetime
 
-
 class DomicilioOrden(BaseModel):
     id: int
     via: str
@@ -53,13 +46,11 @@ class DomicilioOrden(BaseModel):
     localidad: str
     provincia: str
 
-
 class CobroOrden(BaseModel):
     id: int
     estado_cobro: str
     monto: Decimal
     medio: Optional[str] = None
-
 
 class RespuestaOrden(BaseModel):
     id: int

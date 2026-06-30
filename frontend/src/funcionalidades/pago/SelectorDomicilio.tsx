@@ -17,8 +17,7 @@ export function SelectorDomicilio({
   const { consulta, crear } = useDomicilios()
   const [modalAbierto, setModalAbierto] = useState(false)
 
-  // Preseleccionar el predeterminado o el primero
-  useEffect(() => {
+    useEffect(() => {
     if (domicilioSeleccionado || !consulta.data?.length) return
     const predeterminado = consulta.data.find((d) => d.es_predeterminado)
     alSeleccionar((predeterminado ?? consulta.data[0]).id)

@@ -1,4 +1,3 @@
-"""Limitador de tasa de peticiones basado en SlowAPI."""
 from __future__ import annotations
 
 from slowapi import Limiter

@@ -1,4 +1,3 @@
-"""Enrutador WebSocket para suscripcion a canales en tiempo real."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Query, WebSocket, WebSocketDisconnect, status
@@ -8,14 +7,12 @@ from app.modulos.tiempo_real.gestor import gestor_conexiones
 
 enrutador = APIRouter()
 
-
 @enrutador.websocket("/ws/{canal}")
 async def canal_tiempo_real(
     websocket: WebSocket,
     canal: str,
     token: str = Query(default=""),
 ) -> None:
-    """Acepta una conexion autenticada y la suscribe a un canal."""
     try:
         decodificar_token(token)
     except JWTError:

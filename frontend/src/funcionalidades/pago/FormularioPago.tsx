@@ -39,8 +39,7 @@ export function FormularioPago() {
   const [totalOrden, setTotalOrden] = useState<number>(0)
   const [errorPago, setErrorPago] = useState<string | null>(null)
 
-  // Al cambiar tipo de entrega, resetear forma de pago si EFECTIVO y se pasa a DOMICILIO
-  const cambiarTipoEntrega = (tipo: TipoEntrega) => {
+    const cambiarTipoEntrega = (tipo: TipoEntrega) => {
     setTipoEntrega(tipo)
     if (tipo === "DOMICILIO" && formaPago === "EFECTIVO") {
       setFormaPago("MERCADOPAGO")
@@ -68,8 +67,7 @@ export function FormularioPago() {
     setPaso("pagar")
   }
 
-  // Paso pagar
-  if (paso === "pagar") {
+    if (paso === "pagar") {
     return (
       <div className="space-y-6">
         {errorPago && (
@@ -117,7 +115,7 @@ export function FormularioPago() {
     <div className="grid gap-6 lg:grid-cols-3">
       <div className="space-y-5 lg:col-span-2">
 
-        {/* 1. Tipo de entrega */}
+        
         <section className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
           <h2 className="mb-4 text-lg font-semibold">1. ¿Cómo recibís tu pedido?</h2>
           <div className="grid grid-cols-2 gap-3">
@@ -143,7 +141,7 @@ export function FormularioPago() {
           </div>
         </section>
 
-        {/* 2. Domicilio (solo si DOMICILIO) */}
+        
         {tipoEntrega === "DOMICILIO" && (
           <section className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold">2. Domicilio de entrega</h2>
@@ -154,7 +152,7 @@ export function FormularioPago() {
           </section>
         )}
 
-        {/* 3. Forma de pago */}
+        
         <section className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
           <h2 className="mb-4 text-lg font-semibold">
             {tipoEntrega === "LOCAL" ? "2." : "3."} Forma de pago
@@ -180,7 +178,7 @@ export function FormularioPago() {
           </div>
         </section>
 
-        {/* Items del pedido */}
+        
         <section className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
           <h2 className="mb-2 text-lg font-semibold">Resumen del pedido</h2>
           <div className="divide-y divide-gray-100">
@@ -191,7 +189,7 @@ export function FormularioPago() {
         </section>
       </div>
 
-      {/* Sidebar resumen */}
+      
       <div className="space-y-4">
         <ResumenCarrito total={total} cantidad={cantidadTotal}>
           {tipoEntrega === "LOCAL" && (

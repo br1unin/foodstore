@@ -1,11 +1,8 @@
-"""Entidades catalogo del dominio de ordenes: estados y formas de pago."""
 from __future__ import annotations
 
 from sqlmodel import Field, SQLModel
 
-
 class EstadoPedido(SQLModel, table=True):
-    """Catalogo de estados validos de una orden."""
 
     __tablename__ = "estado_pedido"
 
@@ -14,9 +11,7 @@ class EstadoPedido(SQLModel, table=True):
     orden: int
     es_terminal: bool = Field(default=False)
 
-
 class FormaPago(SQLModel, table=True):
-    """Catalogo de formas de pago habilitadas."""
 
     __tablename__ = "forma_pago"
 

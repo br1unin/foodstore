@@ -1,4 +1,3 @@
-"""Enrutador del modulo de sesion."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, Request, status
@@ -21,12 +20,10 @@ from app.persistencia.sesion_trabajo import GestorTransaccion, obtener_gestor
 
 enrutador = APIRouter(prefix="/sesion", tags=["sesion"])
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioSesion:
     return ServicioSesion(RepositorioSesion(gestor.sesion), gestor)
-
 
 @enrutador.post(
     "/registrar", response_model=RespuestaToken, status_code=status.HTTP_201_CREATED
@@ -40,7 +37,6 @@ def registrar(
     cuenta = servicio.registrar_cuenta(datos)
     return servicio._emitir_tokens(cuenta)
 
-
 @enrutador.post("/iniciar", response_model=RespuestaToken)
 @limitador.limit("5/15minutes")
 def iniciar(
@@ -50,7 +46,6 @@ def iniciar(
 ) -> RespuestaToken:
     return servicio.iniciar_sesion(datos)
 
-
 @enrutador.post("/renovar", response_model=RespuestaAcceso)
 def renovar(
     datos: RenovarEntrada,
@@ -58,14 +53,12 @@ def renovar(
 ) -> RespuestaAcceso:
     return servicio.renovar_token(datos.token_renovacion)
 
-
 @enrutador.post("/cerrar", status_code=status.HTTP_204_NO_CONTENT)
 def cerrar(
     datos: CerrarEntrada,
     servicio: ServicioSesion = Depends(obtener_servicio),
 ) -> None:
     servicio.cerrar_sesion(datos.token_renovacion)
-
 
 @enrutador.get("/mi-cuenta", response_model=CuentaBasica)
 def mi_cuenta(

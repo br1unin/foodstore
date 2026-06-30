@@ -1,4 +1,3 @@
-"""Servicio del modulo de domicilios."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,7 +8,6 @@ from app.modulos.domicilios.esquemas import DomicilioEntrada, DomicilioSalida
 from app.modulos.domicilios.repositorio import RepositorioDomicilios
 from app.persistencia.entidades.domicilio import Domicilio
 from app.persistencia.sesion_trabajo import GestorTransaccion
-
 
 class ServicioDomicilios:
     def __init__(self, repositorio: RepositorioDomicilios, gestor: GestorTransaccion) -> None:

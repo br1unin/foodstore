@@ -8,7 +8,6 @@ const MAX_INTENTOS = 8
 const DEMORA_BASE_MS = 1000
 const DEMORA_MAX_MS = 30_000
 
-/** Backoff exponencial con ±25% de jitter para evitar thundering herd. */
 function calcularDemora(intento: number): number {
   const exponencial = DEMORA_BASE_MS * 2 ** intento
   const tope = Math.min(exponencial, DEMORA_MAX_MS)
@@ -40,8 +39,7 @@ export const conexionStore = create<EstadoConexion>()((set, get) => ({
   conectar: (canal) => {
     const { socket, canalActual } = get()
 
-    // Ya conectado al mismo canal → no hacer nada
-    if (
+        if (
       socket &&
       canalActual === canal &&
       (socket.readyState === WebSocket.OPEN ||
@@ -50,8 +48,7 @@ export const conexionStore = create<EstadoConexion>()((set, get) => ({
       return
     }
 
-    // Cerrar socket previo sin disparar reconexión automática
-    if (socket) {
+        if (socket) {
       socket.onclose = null
       socket.onerror = null
       socket.close()
@@ -89,8 +86,7 @@ export const conexionStore = create<EstadoConexion>()((set, get) => ({
 
       const { intentosReconexion, canalActual: canalVigente } = get()
 
-      // Solo reconectar si el canal sigue siendo el mismo (no fue un cierre intencional)
-      if (canalVigente !== canal) return
+            if (canalVigente !== canal) return
       if (intentosReconexion >= MAX_INTENTOS) return
 
       const demora = calcularDemora(intentosReconexion)
@@ -110,11 +106,9 @@ export const conexionStore = create<EstadoConexion>()((set, get) => ({
   desconectar: () => {
     const { socket, _timerId } = get()
 
-    // Cancelar cualquier reconexión pendiente antes de cerrar
-    if (_timerId !== null) clearTimeout(_timerId)
+        if (_timerId !== null) clearTimeout(_timerId)
 
-    // Nullear canalActual ANTES de cerrar para que onclose no dispare reconexión
-    set({ canalActual: null, _timerId: null })
+        set({ canalActual: null, _timerId: null })
 
     if (socket) {
       socket.onclose = null
@@ -128,7 +122,6 @@ export const conexionStore = create<EstadoConexion>()((set, get) => ({
   registrarEvento: (evento) => set({ ultimoEvento: evento }),
 }))
 
-// Reconectar cuando el tab vuelve a primer plano si el socket murió silenciosamente
 if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
     if (document.visibilityState !== "visible") return

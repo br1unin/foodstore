@@ -1,4 +1,3 @@
-"""Servicio del modulo de articulos."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -18,7 +17,6 @@ from app.modulos.articulos.esquemas import (
 from app.modulos.articulos.repositorio import RepositorioArticulos
 from app.persistencia.entidades.articulo import Articulo, ArticuloImagen
 from app.persistencia.sesion_trabajo import GestorTransaccion
-
 
 class ServicioArticulos:
     def __init__(self, repositorio: RepositorioArticulos, gestor: GestorTransaccion) -> None:

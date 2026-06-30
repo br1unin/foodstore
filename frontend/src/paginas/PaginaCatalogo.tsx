@@ -26,7 +26,7 @@ export function PaginaCatalogo() {
 
   return (
     <div className="space-y-6">
-      {/* Hero */}
+      
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primario-500 via-primario-600 to-calido-500 p-8 text-white shadow-tarjeta-hover">
         <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute -bottom-12 -right-4 h-52 w-52 rounded-full bg-white/5" />
@@ -47,7 +47,7 @@ export function PaginaCatalogo() {
         </div>
       </div>
 
-      {/* Filtros */}
+      
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <FiltroPorCategoria categoriaActiva={categoria} alSeleccionar={setCategoria} />
         <div className="w-full lg:w-72">

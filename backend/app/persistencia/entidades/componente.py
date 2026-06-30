@@ -1,4 +1,3 @@
-"""Entidad de componentes (ingredientes) de los articulos."""
 from __future__ import annotations
 
 import enum
@@ -16,9 +15,7 @@ class UnidadMedida(str, enum.Enum):
     G = "g"
     KG = "kg"
 
-
 class Componente(SQLModel, table=True):
-    """Insumo que compone uno o mas articulos."""
 
     __tablename__ = "componente"
 

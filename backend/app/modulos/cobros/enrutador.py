@@ -1,4 +1,3 @@
-"""Enrutador del modulo de cobros."""
 from __future__ import annotations
 
 import hashlib
@@ -22,18 +21,7 @@ from app.persistencia.sesion_trabajo import GestorTransaccion, obtener_gestor
 
 enrutador = APIRouter(prefix="/cobros", tags=["cobros"])
 
-
 def _verificar_firma_mp(request: Request) -> None:
-    """Valida la firma HMAC-SHA256 del webhook de MercadoPago.
-
-    Solo se valida si SECRETO_WEBHOOK_MP está configurado, para permitir
-    desarrollo local sin credenciales reales.
-
-    Formato del manifest (doc oficial):
-      id:{data.id_queryparams};request-id:{x-request-id};ts:{ts};
-    Los campos ausentes se omiten del manifest.
-    data.id debe estar en minúsculas si contiene alfanuméricos.
-    """
     secreto = ajustes.secreto_webhook_mp
     if not secreto:
         return
@@ -46,11 +34,9 @@ def _verificar_firma_mp(request: Request) -> None:
     ts = partes.get("ts", "")
     firma_recibida = partes.get("v1", "")
 
-    # data.id viene de query params (no del body) y va en minúsculas
     data_id = request.query_params.get("data.id", "").lower()
     request_id = request.headers.get("x-request-id", "")
 
-    # Construir manifest solo con los campos presentes
     partes_manifest: list[str] = []
     if data_id:
         partes_manifest.append(f"id:{data_id}")
@@ -64,12 +50,10 @@ def _verificar_firma_mp(request: Request) -> None:
     if not hmac.compare_digest(firma_esperada, firma_recibida):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Firma invalida")
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioCobros:
     return ServicioCobros(gestor.sesion, gestor)
-
 
 @enrutador.post(
     "/preferencia", response_model=PreferenciaSalida, status_code=status.HTTP_201_CREATED
@@ -81,7 +65,6 @@ def crear_preferencia(
 ) -> PreferenciaSalida:
     return servicio.crear_preferencia(datos.orden_id, cuenta.id)
 
-
 @enrutador.post(
     "/pago-directo", response_model=PagoDirectoSalida, status_code=status.HTTP_201_CREATED
 )
@@ -91,7 +74,6 @@ def pago_directo(
     servicio: ServicioCobros = Depends(obtener_servicio),
 ) -> PagoDirectoSalida:
     return servicio.pago_directo(datos, cuenta.id)
-
 
 @enrutador.post("/webhook", status_code=status.HTTP_200_OK)
 async def webhook(
@@ -125,7 +107,6 @@ async def webhook(
         await gestor_conexiones.difundir_multiples(canales, evento)
 
     return {"estado": "recibido"}
-
 
 @enrutador.get("/{orden_id}", response_model=CobroSalida)
 def estado_cobro(

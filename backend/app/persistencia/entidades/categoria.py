@@ -1,4 +1,3 @@
-"""Entidad de categorias con soporte de jerarquia."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -6,9 +5,7 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 class Categoria(SQLModel, table=True):
-    """Categoria de articulos, opcionalmente anidada bajo un padre."""
 
     __tablename__ = "categoria"
 

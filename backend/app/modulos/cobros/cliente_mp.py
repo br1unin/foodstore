@@ -1,16 +1,9 @@
-"""Envoltorio sobre el SDK de MercadoPago con degradacion controlada.
-
-Si el SDK no esta instalado o no hay credenciales configuradas, las
-funciones devuelven respuestas simuladas para permitir el desarrollo y las
-pruebas locales sin conexion a la pasarela real.
-"""
 from __future__ import annotations
 
 import uuid
 from typing import Any
 
 from app.nucleo.ajustes import ajustes
-
 
 def _sdk_disponible() -> bool:
     if not ajustes.token_mp:
@@ -21,9 +14,7 @@ def _sdk_disponible() -> bool:
         return False
     return True
 
-
 def crear_preferencia(items: list[dict[str, Any]], referencia: str) -> dict[str, Any]:
-    """Crea una preferencia de pago y devuelve sus identificadores."""
     if not _sdk_disponible():
         identificador = f"sim-pref-{uuid.uuid4().hex[:12]}"
         return {
@@ -59,9 +50,7 @@ def crear_preferencia(items: list[dict[str, Any]], referencia: str) -> dict[str,
         "simulado": False,
     }
 
-
 def consultar_pago(id_pago: str) -> dict[str, Any]:
-    """Consulta el estado de un pago en MercadoPago."""
     if not _sdk_disponible():
         return {"id": id_pago, "status": "approved", "payment_method_id": "simulado"}
 

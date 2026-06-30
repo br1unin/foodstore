@@ -1,4 +1,3 @@
-"""Entidades de articulos (productos), sus imagenes y su composicion."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -7,22 +6,17 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 def _instante_actual() -> datetime:
     return datetime.now(timezone.utc)
 
-
 class ArticuloCategoria(SQLModel, table=True):
-    """Vinculo N:M entre un articulo y una categoria."""
 
     __tablename__ = "articulo_categoria"
 
     articulo_id: int = Field(foreign_key="articulo.id", primary_key=True)
     categoria_id: int = Field(foreign_key="categoria.id", primary_key=True)
 
-
 class ArticuloImagen(SQLModel, table=True):
-    """Imagen alojada en el CDN para un articulo."""
 
     __tablename__ = "articulo_imagen"
 
@@ -32,9 +26,7 @@ class ArticuloImagen(SQLModel, table=True):
     id_cdn: str = Field(max_length=200)
     posicion: int = Field(default=0)
 
-
 class ComposicionArticulo(SQLModel, table=True):
-    """Vinculo N:M articulo-componente con cantidad y unidad de medida."""
 
     __tablename__ = "composicion_articulo"
 
@@ -44,9 +36,7 @@ class ComposicionArticulo(SQLModel, table=True):
     cantidad: Decimal = Field(default=Decimal("1.000"), max_digits=10, decimal_places=3)
     unidad_medida_id: Optional[int] = Field(default=None, foreign_key="unidad_medida.id")
 
-
 class Articulo(SQLModel, table=True):
-    """Producto ofrecido al cliente."""
 
     __tablename__ = "articulo"
 

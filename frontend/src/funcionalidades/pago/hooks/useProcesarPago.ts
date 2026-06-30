@@ -76,8 +76,7 @@ export function useProcesarPago() {
         return { ordenId: orden.id, preferenciaId: null, totalOrden: totalAntes }
       }
 
-      // Efectivo o Tarjeta → ir directamente al detalle de la orden
-      navigate(`/mis-ordenes/${orden.id}`)
+            navigate(`/mis-ordenes/${orden.id}`)
       return null
     } catch (err) {
       setError(extraerMensajeError(err, "No se pudo procesar el pedido"))

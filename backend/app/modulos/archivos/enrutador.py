@@ -1,4 +1,3 @@
-"""Enrutador del modulo de archivos."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
@@ -13,7 +12,6 @@ enrutador = APIRouter(
     tags=["archivos"],
     dependencies=[Depends(requerir_perfil("ADMINISTRADOR"))],
 )
-
 
 @enrutador.post(
     "/imagen", response_model=ImagenSubidaSalida, status_code=status.HTTP_201_CREATED
@@ -32,7 +30,6 @@ async def subir(archivo: UploadFile = File(...)) -> ImagenSubidaSalida:
         id_cdn=resultado["id_cdn"],
         simulado=resultado.get("simulado", False),
     )
-
 
 @enrutador.delete("/imagen/{id_cdn:path}", status_code=status.HTTP_204_NO_CONTENT)
 def eliminar(id_cdn: str) -> None:

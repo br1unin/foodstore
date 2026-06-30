@@ -1,4 +1,3 @@
-"""Servicio del modulo de ordenes: creacion y ciclo de estados."""
 from __future__ import annotations
 
 import json
@@ -32,13 +31,11 @@ from app.persistencia.sesion_trabajo import GestorTransaccion
 
 ESTADOS_REPONEN_STOCK = {"PENDIENTE", "CONFIRMADO"}
 
-
 class ServicioOrdenes:
     def __init__(self, repositorio: RepositorioOrdenes, gestor: GestorTransaccion) -> None:
         self.repositorio = repositorio
         self.gestor = gestor
 
-    # --- Serializacion ---------------------------------------------------
     def _a_respuesta(self, orden: Orden) -> RespuestaOrden:
         partidas = []
         for p in self.repositorio.partidas_de(orden.id):
@@ -123,7 +120,6 @@ class ServicioOrdenes:
                 nombres.append(comp.denominacion)
         return nombres
 
-    # --- Casos de uso ----------------------------------------------------
     def crear_orden(self, cuenta_id: int, datos: CrearOrdenEntrada) -> RespuestaOrden:
         tipo = datos.tipo_entrega.upper()
         if tipo not in ("DOMICILIO", "LOCAL"):
