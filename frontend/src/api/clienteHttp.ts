@@ -15,7 +15,6 @@ export const clienteHttp = axios.create({
   headers: { "Content-Type": "application/json" },
 })
 
-// --- Interceptor de request: prefijo API + token de acceso ---
 clienteHttp.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (config.url && !config.url.startsWith("http") && !config.url.startsWith(PREFIJO_API)) {
@@ -30,7 +29,6 @@ clienteHttp.interceptors.request.use(
   (error) => Promise.reject(error),
 )
 
-// --- Manejo de renovación de token (evita renovaciones concurrentes) ---
 interface ConfigReintentable extends AxiosRequestConfig {
   _reintentado?: boolean
 }

@@ -25,12 +25,10 @@ import { PaginaGestionOrdenes } from "@/paginas/admin/PaginaGestionOrdenes"
 import { PaginaGestionCuentas } from "@/paginas/admin/PaginaGestionCuentas"
 
 export const enrutadorApp = createBrowserRouter([
-  // Rutas de autenticación (sin layout principal)
-  { path: "/ingresar", element: <PaginaIngreso /> },
+    { path: "/ingresar", element: <PaginaIngreso /> },
   { path: "/registrarse", element: <PaginaRegistro /> },
 
-  // Layout cliente
-  {
+    {
     element: <DisposicionCliente />,
     children: [
       { path: "/", element: <PaginaCatalogo /> },
@@ -52,8 +50,7 @@ export const enrutadorApp = createBrowserRouter([
     ],
   },
 
-  // Layout admin
-  {
+    {
     element: <RutaProtegida perfilesRequeridos={["ADMINISTRADOR", "DESPACHO", "INVENTARIO"]} />,
     children: [
       {
@@ -87,6 +84,5 @@ export const enrutadorApp = createBrowserRouter([
     ],
   },
 
-  // Fallback
-  { path: "*", element: <PaginaCatalogo /> },
+    { path: "*", element: <PaginaCatalogo /> },
 ])

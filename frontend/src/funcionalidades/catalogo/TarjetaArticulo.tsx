@@ -61,7 +61,7 @@ export function TarjetaArticulo({ articulo }: { articulo: ArticuloLista }) {
   return (
     <>
       <div className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-tarjeta transition-all duration-200 hover:-translate-y-1 hover:shadow-tarjeta-hover">
-        {/* Imagen */}
+        
         <Link to={`/articulos/${articulo.id}`} className="block">
           <div className="relative aspect-[4/3] overflow-hidden bg-crema-100">
             {articulo.imagen_principal ? (
@@ -97,7 +97,7 @@ export function TarjetaArticulo({ articulo }: { articulo: ArticuloLista }) {
           </div>
         </Link>
 
-        {/* Info */}
+        
         <div className="flex flex-1 flex-col p-4">
           <Link
             to={`/articulos/${articulo.id}`}

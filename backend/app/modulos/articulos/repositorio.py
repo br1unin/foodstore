@@ -1,4 +1,3 @@
-"""Repositorio del modulo de articulos."""
 from __future__ import annotations
 
 from typing import Optional
@@ -15,10 +14,8 @@ from app.persistencia.entidades.articulo import (
 from app.persistencia.entidades.categoria import Categoria
 from app.persistencia.entidades.componente import Componente
 
-
 class RepositorioArticulos(BaseRepositorio[Articulo]):
 
-    # --- Articulo --------------------------------------------------------
     def _consulta_base(self, categoria_id: Optional[int], disponible: Optional[bool], texto: Optional[str]):
         consulta = select(Articulo).where(Articulo.eliminado_en.is_(None))
         if disponible is not None:
@@ -50,7 +47,6 @@ class RepositorioArticulos(BaseRepositorio[Articulo]):
         )
         return self.sesion.exec(consulta).first()
 
-    # --- Categorias ------------------------------------------------------
     def categorias_de(self, articulo_id: int) -> list[int]:
         consulta = select(ArticuloCategoria.categoria_id).where(
             ArticuloCategoria.articulo_id == articulo_id
@@ -76,7 +72,6 @@ class RepositorioArticulos(BaseRepositorio[Articulo]):
             )
         self.sesion.flush()
 
-    # --- Composicion -----------------------------------------------------
     def composicion_de(self, articulo_id: int) -> list[tuple[int, str, bool, int]]:
         consulta = (
             select(
@@ -113,7 +108,6 @@ class RepositorioArticulos(BaseRepositorio[Articulo]):
         comp = self.sesion.get(Componente, componente_id)
         return comp.denominacion if comp else None
 
-    # --- Imagenes --------------------------------------------------------
     def imagenes_de(self, articulo_id: int) -> list[ArticuloImagen]:
         consulta = (
             select(ArticuloImagen)

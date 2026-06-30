@@ -1,4 +1,3 @@
-"""Servicio del modulo de categorias."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,7 +8,6 @@ from app.modulos.categorias.esquemas import CategoriaEntrada, CategoriaSalida
 from app.modulos.categorias.repositorio import RepositorioCategorias
 from app.persistencia.entidades.categoria import Categoria
 from app.persistencia.sesion_trabajo import GestorTransaccion
-
 
 class ServicioCategorias:
     def __init__(self, repositorio: RepositorioCategorias, gestor: GestorTransaccion) -> None:

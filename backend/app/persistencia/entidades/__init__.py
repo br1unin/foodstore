@@ -1,4 +1,3 @@
-"""Re-exporta todas las entidades para poblar SQLModel.metadata."""
 from app.persistencia.entidades.cuenta import (
     Cuenta,
     CuentaPerfil,

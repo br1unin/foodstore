@@ -1,4 +1,3 @@
-"""Servicio del modulo de administracion de cuentas."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,7 +8,6 @@ from app.modulos.cuentas.esquemas import CuentaDetalle
 from app.modulos.cuentas.repositorio import RepositorioCuentas
 from app.persistencia.entidades.cuenta import Cuenta
 from app.persistencia.sesion_trabajo import GestorTransaccion
-
 
 class ServicioCuentas:
     def __init__(self, repositorio: RepositorioCuentas, gestor: GestorTransaccion) -> None:

@@ -1,4 +1,3 @@
-"""Enrutador del modulo de metricas."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, Query
@@ -20,17 +19,14 @@ enrutador = APIRouter(
     dependencies=[Depends(requerir_perfil("ADMINISTRADOR"))],
 )
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioMetricas:
     return ServicioMetricas(gestor.sesion)
 
-
 @enrutador.get("/resumen", response_model=ResumenMetricas)
 def resumen(servicio: ServicioMetricas = Depends(obtener_servicio)) -> ResumenMetricas:
     return servicio.resumen()
-
 
 @enrutador.get("/ventas", response_model=list[PuntoVenta])
 def ventas(
@@ -39,20 +35,17 @@ def ventas(
 ) -> list[PuntoVenta]:
     return servicio.ventas_por_periodo(periodo)
 
-
 @enrutador.get("/articulos-destacados", response_model=list[ArticuloDestacado])
 def articulos_destacados(
     servicio: ServicioMetricas = Depends(obtener_servicio),
 ) -> list[ArticuloDestacado]:
     return servicio.articulos_destacados()
 
-
 @enrutador.get("/distribucion-estados", response_model=list[ConteoEstado])
 def distribucion_estados(
     servicio: ServicioMetricas = Depends(obtener_servicio),
 ) -> list[ConteoEstado]:
     return servicio.distribucion_estados()
-
 
 @enrutador.get("/ingresos-por-medio", response_model=list[IngresoPorMedio])
 def ingresos_por_medio(

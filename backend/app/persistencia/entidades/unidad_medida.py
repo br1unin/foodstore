@@ -1,13 +1,10 @@
-"""Entidad de unidades de medida (kg, L, ud, etc.)."""
 from __future__ import annotations
 
 from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 class UnidadMedida(SQLModel, table=True):
-    """Unidad con la que se mide o vende un articulo o ingrediente."""
 
     __tablename__ = "unidad_medida"
 

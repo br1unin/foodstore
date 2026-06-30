@@ -1,10 +1,8 @@
-"""Esquemas del modulo de categorias."""
 from __future__ import annotations
 
 from typing import Optional
 
 from pydantic import BaseModel, Field
-
 
 class CategoriaEntrada(BaseModel):
     nombre: str = Field(min_length=1, max_length=100)
@@ -13,7 +11,6 @@ class CategoriaEntrada(BaseModel):
     imagen_id_cdn: Optional[str] = None
     padre_id: Optional[int] = None
 
-
 class CategoriaSalida(BaseModel):
     id: int
     nombre: str
@@ -21,6 +18,5 @@ class CategoriaSalida(BaseModel):
     imagen_url: Optional[str] = None
     padre_id: Optional[int] = None
     hijos: list["CategoriaSalida"] = []
-
 
 CategoriaSalida.model_rebuild()

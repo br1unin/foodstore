@@ -20,7 +20,7 @@ export function CajonCarrito() {
 
   return (
     <>
-      {/* Overlay */}
+      
       <div
         className={`fixed inset-0 z-40 bg-black/30 backdrop-blur-sm transition-opacity ${
           estaAbierto ? "opacity-100" : "pointer-events-none opacity-0"
@@ -28,13 +28,13 @@ export function CajonCarrito() {
         onClick={cerrarCarrito}
       />
 
-      {/* Drawer */}
+      
       <aside
         className={`fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col bg-white shadow-2xl transition-transform duration-300 ${
           estaAbierto ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header */}
+        
         <div className="flex items-center justify-between border-b border-crema-200 bg-crema-50 px-6 py-4">
           <div className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5 text-primario-500" />
@@ -49,7 +49,7 @@ export function CajonCarrito() {
           </button>
         </div>
 
-        {/* Items */}
+        
         <div className="flex-1 overflow-y-auto px-5 py-2">
           {elementos.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
@@ -70,7 +70,7 @@ export function CajonCarrito() {
           )}
         </div>
 
-        {/* Footer */}
+        
         {elementos.length > 0 && (
           <div className="space-y-3 border-t border-crema-200 bg-crema-50 px-5 py-4">
             <div className="flex justify-between text-base font-extrabold text-gray-900">

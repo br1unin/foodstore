@@ -1,4 +1,3 @@
-"""Repositorio del modulo de administracion de cuentas."""
 from __future__ import annotations
 
 from typing import Optional
@@ -11,7 +10,6 @@ from app.persistencia.entidades.cuenta import (
     CuentaPerfil,
     Perfil,
 )
-
 
 class RepositorioCuentas(BaseRepositorio[Cuenta]):
     def listar_todas(self) -> list[Cuenta]:

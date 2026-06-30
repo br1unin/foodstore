@@ -1,9 +1,3 @@
-"""add es_prefabricado to articulo
-
-Revision ID: a1b2c3d4e5f6
-Revises: 6c9827e3bec3
-Create Date: 2026-06-29 00:00:00.000000
-"""
 from __future__ import annotations
 
 from alembic import op
@@ -14,13 +8,11 @@ down_revision = "6c9827e3bec3"
 branch_labels = None
 depends_on = None
 
-
 def upgrade() -> None:
     op.add_column(
         "articulo",
         sa.Column("es_prefabricado", sa.Boolean(), nullable=False, server_default="false"),
     )
-
 
 def downgrade() -> None:
     op.drop_column("articulo", "es_prefabricado")

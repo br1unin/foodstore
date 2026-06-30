@@ -1,4 +1,3 @@
-"""Entidad de domicilios de entrega asociados a una cuenta."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -6,9 +5,7 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 class Domicilio(SQLModel, table=True):
-    """Direccion postal donde se entregan las ordenes."""
 
     __tablename__ = "domicilio"
 

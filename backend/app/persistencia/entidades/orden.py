@@ -1,4 +1,3 @@
-"""Entidades del flujo de ordenes: orden, partidas, bitacora y cobro."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -9,13 +8,10 @@ from sqlmodel import Field, SQLModel
 
 COSTO_ENVIO_DEFAULT = Decimal("50.00")
 
-
 def _instante_actual() -> datetime:
     return datetime.now(timezone.utc)
 
-
 class Orden(SQLModel, table=True):
-    """Pedido realizado por una cuenta compradora."""
 
     __tablename__ = "orden"
 
@@ -33,9 +29,7 @@ class Orden(SQLModel, table=True):
     registrada_en: datetime = Field(default_factory=_instante_actual, index=True)
     actualizada_en: datetime = Field(default_factory=_instante_actual)
 
-
 class PartidaOrden(SQLModel, table=True):
-    """Renglon inmutable (snapshot) de una orden."""
 
     __tablename__ = "partida_orden"
 
@@ -48,9 +42,7 @@ class PartidaOrden(SQLModel, table=True):
     subtotal_snap: Decimal = Field(max_digits=10, decimal_places=2)
     componentes_excluidos: Optional[str] = Field(default=None, max_length=1000)
 
-
 class BitacoraOrden(SQLModel, table=True):
-    """Registro append-only de cada transicion de estado de una orden."""
 
     __tablename__ = "bitacora_orden"
 
@@ -62,9 +54,7 @@ class BitacoraOrden(SQLModel, table=True):
     comentario: Optional[str] = Field(default=None, max_length=500)
     registrado_en: datetime = Field(default_factory=_instante_actual)
 
-
 class Cobro(SQLModel, table=True):
-    """Pago asociado de forma unica a una orden."""
 
     __tablename__ = "cobro"
 

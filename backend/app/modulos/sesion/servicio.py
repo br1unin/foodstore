@@ -1,4 +1,3 @@
-"""Servicio del modulo de sesion: reglas de autenticacion."""
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
@@ -25,17 +24,13 @@ from app.persistencia.sesion_trabajo import GestorTransaccion
 
 PERFIL_POR_DEFECTO = "COMPRADOR"
 
-
 class ServicioSesion:
-    """Orquesta el registro, login, renovacion y cierre de sesion."""
 
     def __init__(self, repositorio: RepositorioSesion, gestor: GestorTransaccion) -> None:
         self.repositorio = repositorio
         self.gestor = gestor
 
-    # --- Helpers ---------------------------------------------------------
     def cuenta_a_respuesta(self, cuenta: Cuenta) -> CuentaBasica:
-        """Convierte una entidad Cuenta en su DTO publico."""
         return CuentaBasica(
             id=cuenta.id,
             correo=cuenta.correo,
@@ -69,7 +64,6 @@ class ServicioSesion:
             ),
         )
 
-    # --- Casos de uso ----------------------------------------------------
     def registrar_cuenta(self, datos: RegistroEntrada) -> Cuenta:
         if self.repositorio.buscar_cuenta_por_correo(datos.correo) is not None:
             raise HTTPException(

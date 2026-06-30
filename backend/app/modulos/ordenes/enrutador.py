@@ -1,4 +1,3 @@
-"""Enrutador del modulo de ordenes."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, status
@@ -24,12 +23,10 @@ enrutador = APIRouter(prefix="/ordenes", tags=["ordenes"])
 
 _PERFILES_GESTORES = {"ADMINISTRADOR", "DESPACHO"}
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioOrdenes:
     return ServicioOrdenes(RepositorioOrdenes(gestor.sesion), gestor)
-
 
 async def _difundir_orden(orden: RespuestaOrden, evento: str) -> None:
     mensaje = {
@@ -40,7 +37,6 @@ async def _difundir_orden(orden: RespuestaOrden, evento: str) -> None:
     }
     canales = {"ordenes", f"orden:{orden.id}", f"cuenta:{orden.cuenta_id}"}
     await gestor_conexiones.difundir_multiples(canales, mensaje)
-
 
 @enrutador.post(
     "", response_model=RespuestaOrden, status_code=status.HTTP_201_CREATED
@@ -56,14 +52,12 @@ async def crear(
     await _difundir_orden(orden, "orden_creada")
     return orden
 
-
 @enrutador.get("/mis-ordenes", response_model=list[RespuestaOrden])
 def mis_ordenes(
     cuenta: Cuenta = Depends(requerir_perfil("COMPRADOR", "ADMINISTRADOR")),
     servicio: ServicioOrdenes = Depends(obtener_servicio),
 ) -> list[RespuestaOrden]:
     return servicio.listar_mias(cuenta.id)
-
 
 @enrutador.get(
     "", response_model=list[RespuestaOrden],
@@ -73,7 +67,6 @@ def listar(
     servicio: ServicioOrdenes = Depends(obtener_servicio),
 ) -> list[RespuestaOrden]:
     return servicio.listar_todas()
-
 
 @enrutador.get("/{orden_id}", response_model=RespuestaOrden)
 def detalle(
@@ -86,7 +79,6 @@ def detalle(
     es_gestor = bool(perfiles.intersection(_PERFILES_GESTORES))
     return servicio.detalle(orden_id, cuenta.id, es_gestor)
 
-
 @enrutador.get("/{orden_id}/historial", response_model=list[RespuestaBitacora])
 def historial(
     orden_id: int,
@@ -97,7 +89,6 @@ def historial(
     perfiles = set(perfiles_de_cuenta(gestor, cuenta.id))
     es_gestor = bool(perfiles.intersection(_PERFILES_GESTORES))
     return servicio.historial(orden_id, cuenta.id, es_gestor)
-
 
 @enrutador.patch("/{orden_id}/estado", response_model=RespuestaOrden)
 async def cambiar_estado(
@@ -113,7 +104,6 @@ async def cambiar_estado(
         )
     await _difundir_orden(orden, "orden_actualizada")
     return orden
-
 
 @enrutador.post("/{orden_id}/cancelar", response_model=RespuestaOrden)
 async def cancelar(

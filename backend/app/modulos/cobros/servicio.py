@@ -1,4 +1,3 @@
-"""Servicio del modulo de cobros."""
 from __future__ import annotations
 
 import uuid
@@ -20,7 +19,6 @@ _MAPA_ESTADOS = {
     "rejected": "rejected",
     "cancelled": "cancelled",
 }
-
 
 class ServicioCobros:
     def __init__(self, sesion: Session, gestor: GestorTransaccion) -> None:
@@ -89,7 +87,6 @@ class ServicioCobros:
         )
 
     def procesar_webhook(self, id_pago: str | None) -> tuple[int | None, str | None, int | None]:
-        """Procesa el webhook de MP. Retorna (orden_id, nuevo_estado, cuenta_id) si aplica."""
         if not id_pago:
             return None, None, None
         datos = consultar_pago(id_pago)
@@ -138,7 +135,6 @@ class ServicioCobros:
         return cobro.orden_id, nuevo_estado, cuenta_id
 
     def pago_directo(self, datos: PagoDirectoEntrada, cuenta_id: int) -> PagoDirectoSalida:
-        """Cobra con tarjeta directamente (CardPayment Brick). No crea preferencia."""
         try:
             import mercadopago
         except ImportError as exc:

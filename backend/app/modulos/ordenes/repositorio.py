@@ -1,4 +1,3 @@
-"""Repositorio del modulo de ordenes."""
 from __future__ import annotations
 
 from typing import Optional
@@ -16,10 +15,8 @@ from app.persistencia.entidades.orden import (
     PartidaOrden,
 )
 
-
 class RepositorioOrdenes(BaseRepositorio[Orden]):
 
-    # --- Lectura de dependencias ----------------------------------------
     def buscar_articulo(self, articulo_id: int) -> Optional[Articulo]:
         consulta = select(Articulo).where(
             Articulo.id == articulo_id, Articulo.eliminado_en.is_(None)
@@ -39,7 +36,6 @@ class RepositorioOrdenes(BaseRepositorio[Orden]):
             return None
         return self.sesion.get(Domicilio, domicilio_id)
 
-    # --- Orden -----------------------------------------------------------
     def guardar_orden(self, orden: Orden) -> Orden:
         return self.guardar(orden)
 
@@ -58,7 +54,6 @@ class RepositorioOrdenes(BaseRepositorio[Orden]):
         )
         return list(self.sesion.exec(consulta).all())
 
-    # --- Partidas --------------------------------------------------------
     def agregar_partida(self, partida: PartidaOrden) -> PartidaOrden:
         return self.guardar(partida)
 
@@ -66,7 +61,6 @@ class RepositorioOrdenes(BaseRepositorio[Orden]):
         consulta = select(PartidaOrden).where(PartidaOrden.orden_id == orden_id)
         return list(self.sesion.exec(consulta).all())
 
-    # --- Bitacora --------------------------------------------------------
     def agregar_bitacora(self, registro: BitacoraOrden) -> BitacoraOrden:
         return self.guardar(registro)
 
@@ -78,7 +72,6 @@ class RepositorioOrdenes(BaseRepositorio[Orden]):
         )
         return list(self.sesion.exec(consulta).all())
 
-    # --- Cobro -----------------------------------------------------------
     def cobro_de(self, orden_id: int) -> Optional[Cobro]:
         consulta = select(Cobro).where(Cobro.orden_id == orden_id)
         return self.sesion.exec(consulta).first()

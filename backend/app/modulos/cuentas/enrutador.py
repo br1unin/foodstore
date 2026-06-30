@@ -1,4 +1,3 @@
-"""Enrutador del modulo de administracion de cuentas."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, status
@@ -19,24 +18,20 @@ enrutador = APIRouter(
     dependencies=[Depends(requerir_perfil("ADMINISTRADOR"))],
 )
 
-
 def obtener_servicio(
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> ServicioCuentas:
     return ServicioCuentas(RepositorioCuentas(gestor.sesion), gestor)
 
-
 @enrutador.get("", response_model=list[CuentaDetalle])
 def listar(servicio: ServicioCuentas = Depends(obtener_servicio)) -> list[CuentaDetalle]:
     return servicio.listar()
-
 
 @enrutador.get("/{cuenta_id}", response_model=CuentaDetalle)
 def detalle(
     cuenta_id: int, servicio: ServicioCuentas = Depends(obtener_servicio)
 ) -> CuentaDetalle:
     return servicio.detalle(cuenta_id)
-
 
 @enrutador.patch("/{cuenta_id}/estado", response_model=CuentaDetalle)
 def cambiar_estado(
@@ -46,7 +41,6 @@ def cambiar_estado(
 ) -> CuentaDetalle:
     return servicio.cambiar_estado(cuenta_id, datos.habilitado)
 
-
 @enrutador.patch("/{cuenta_id}/perfil", response_model=CuentaDetalle)
 def asignar_perfil(
     cuenta_id: int,
@@ -54,7 +48,6 @@ def asignar_perfil(
     servicio: ServicioCuentas = Depends(obtener_servicio),
 ) -> CuentaDetalle:
     return servicio.asignar_perfil(cuenta_id, datos.perfil)
-
 
 @enrutador.delete("/{cuenta_id}", status_code=status.HTTP_204_NO_CONTENT)
 def eliminar(

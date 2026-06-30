@@ -152,7 +152,7 @@ export function FormularioArticulo({
         />
       </div>
 
-      {/* Categorías */}
+      
       <div>
         <p className="mb-1 text-sm font-medium text-gray-700">Categorías</p>
         <div className="flex flex-wrap gap-2">
@@ -173,7 +173,7 @@ export function FormularioArticulo({
         </div>
       </div>
 
-      {/* Tipo de producto */}
+      
       <label className="flex items-center gap-2 text-sm text-gray-700">
         <input
           type="checkbox"
@@ -184,7 +184,7 @@ export function FormularioArticulo({
         Producto prefabricado
       </label>
 
-      {/* Ingredientes */}
+      
       {!esPrefabricado && <div>
         <p className="mb-1 text-sm font-medium text-gray-700">Ingredientes</p>
         {componentes && componentes.length > 0 ? (
@@ -260,7 +260,7 @@ export function FormularioArticulo({
         )}
       </div>}
 
-      {/* Calculadora de precio */}
+      
       {!esPrefabricado && composicion.length > 0 && costoIngredientes > 0 && (
         <div className="rounded-xl border border-primario-100 bg-primario-50 p-4 space-y-3">
           <p className="text-sm font-semibold text-primario-800">Calculadora de precio</p>
@@ -299,7 +299,7 @@ export function FormularioArticulo({
         </div>
       )}
 
-      {/* Imagen */}
+      
       <div>
         <p className="mb-1 text-sm font-medium text-gray-700">
           Imagen principal

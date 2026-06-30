@@ -1,4 +1,3 @@
-"""Entidad de componentes (ingredientes) de los articulos."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -7,9 +6,7 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 class Componente(SQLModel, table=True):
-    """Insumo que compone uno o mas articulos."""
 
     __tablename__ = "componente"
 

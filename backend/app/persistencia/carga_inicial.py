@@ -1,4 +1,3 @@
-"""Carga inicial de datos: catalogos base y cuenta administradora."""
 from __future__ import annotations
 
 from sqlmodel import Session, select
@@ -37,13 +36,10 @@ UNIDADES_MEDIDA = [
     {"nombre": "porcion",   "simbolo": "porciones", "tipo": "contable"},
 ]
 
-
 def ejecutar_carga_inicial(sesion: Session | None = None) -> None:
-    """Crea todos los catalogos base y la cuenta administradora si no existen."""
     propia = sesion is None
     sesion = sesion or Session(motor)
     try:
-        # --- Perfiles RBAC ---
         nombres_perfiles: dict[str, Perfil] = {}
         for nombre in PERFILES_BASE:
             existente = sesion.exec(select(Perfil).where(Perfil.nombre == nombre)).first()
@@ -53,22 +49,18 @@ def ejecutar_carga_inicial(sesion: Session | None = None) -> None:
                 sesion.flush()
             nombres_perfiles[nombre] = existente
 
-        # --- Estados de pedido ---
         for ep in ESTADOS_PEDIDO:
             if not sesion.exec(select(EstadoPedido).where(EstadoPedido.codigo == ep["codigo"])).first():
                 sesion.add(EstadoPedido(**ep))
 
-        # --- Formas de pago ---
         for fp in FORMAS_PAGO:
             if not sesion.exec(select(FormaPago).where(FormaPago.codigo == fp["codigo"])).first():
                 sesion.add(FormaPago(**fp))
 
-        # --- Unidades de medida ---
         for um in UNIDADES_MEDIDA:
             if not sesion.exec(select(UnidadMedida).where(UnidadMedida.simbolo == um["simbolo"])).first():
                 sesion.add(UnidadMedida(**um))
 
-        # --- Cuenta administradora ---
         admin = sesion.exec(select(Cuenta).where(Cuenta.correo == CORREO_ADMIN)).first()
         if admin is None:
             admin = Cuenta(

@@ -1,4 +1,3 @@
-"""Entidades de identidad: perfiles, cuentas y tokens de renovacion."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -6,31 +5,24 @@ from typing import Optional
 
 from sqlmodel import Field, SQLModel
 
-
 def _instante_actual() -> datetime:
     return datetime.now(timezone.utc)
 
-
 class Perfil(SQLModel, table=True):
-    """Rol funcional asignable a una cuenta."""
 
     __tablename__ = "perfil"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     nombre: str = Field(max_length=50, unique=True, index=True)
 
-
 class CuentaPerfil(SQLModel, table=True):
-    """Vinculo N:M entre una cuenta y un perfil."""
 
     __tablename__ = "cuenta_perfil"
 
     cuenta_id: int = Field(foreign_key="cuenta.id", primary_key=True)
     perfil_id: int = Field(foreign_key="perfil.id", primary_key=True)
 
-
 class Cuenta(SQLModel, table=True):
-    """Usuario del sistema con credenciales de acceso."""
 
     __tablename__ = "cuenta"
 
@@ -43,9 +35,7 @@ class Cuenta(SQLModel, table=True):
     modificado_en: datetime = Field(default_factory=_instante_actual)
     eliminado_en: Optional[datetime] = Field(default=None)
 
-
 class TokenRenovacion(SQLModel, table=True):
-    """Refresh token persistido para renovar el token de acceso."""
 
     __tablename__ = "token_renovacion"
 

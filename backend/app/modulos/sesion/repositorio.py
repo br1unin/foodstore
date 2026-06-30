@@ -1,4 +1,3 @@
-"""Repositorio del modulo de sesion: acceso a cuentas, perfiles y tokens."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -14,11 +13,8 @@ from app.persistencia.entidades.cuenta import (
     TokenRenovacion,
 )
 
-
 class RepositorioSesion(BaseRepositorio[Cuenta]):
-    """Encapsula las consultas necesarias para la autenticacion."""
 
-    # --- Cuentas ---------------------------------------------------------
     def buscar_cuenta_por_correo(self, correo: str) -> Optional[Cuenta]:
         consulta = select(Cuenta).where(
             Cuenta.correo == correo, Cuenta.eliminado_en.is_(None)
@@ -34,7 +30,6 @@ class RepositorioSesion(BaseRepositorio[Cuenta]):
     def crear_cuenta(self, cuenta: Cuenta) -> Cuenta:
         return self.guardar(cuenta)
 
-    # --- Perfiles --------------------------------------------------------
     def buscar_perfil_por_nombre(self, nombre: str) -> Optional[Perfil]:
         return self.sesion.exec(
             select(Perfil).where(Perfil.nombre == nombre)
@@ -56,7 +51,6 @@ class RepositorioSesion(BaseRepositorio[Cuenta]):
             )
             self.sesion.flush()
 
-    # --- Tokens de renovacion -------------------------------------------
     def guardar_token(self, token: TokenRenovacion) -> TokenRenovacion:
         return self.guardar(token)
 

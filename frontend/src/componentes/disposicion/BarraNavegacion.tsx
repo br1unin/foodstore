@@ -18,7 +18,7 @@ export function BarraNavegacion() {
   const cerrar = () => setAbierto(false)
 
   const manejarCerrarSesion = async () => {
-    try { await cerrarSesionRemota() } catch { /* cierre local de todas formas */ }
+    try { await cerrarSesionRemota() } catch {  }
     cerrarSesion()
     cerrar()
     navigate("/")
@@ -28,7 +28,7 @@ export function BarraNavegacion() {
     <>
       <header className="sticky top-0 z-40 border-b border-crema-200 bg-crema-100/95 backdrop-blur">
         <div className="contenedor-pagina flex h-16 items-center justify-between">
-            {/* Hamburguesa + Logo */}
+            
           <div className="flex items-center gap-2">
             <button
               onClick={() => setAbierto((v) => !v)}
@@ -56,9 +56,9 @@ export function BarraNavegacion() {
             </Link>
           </div>
 
-          {/* Derecha: carrito */}
+          
           <div className="flex items-center gap-1">
-            {/* Carrito */}
+            
             <button
               onClick={alternarCarrito}
               className="relative rounded-xl p-2 text-gray-700 hover:bg-crema-200 transition-colors"
@@ -78,7 +78,7 @@ export function BarraNavegacion() {
         </div>
       </header>
 
-      {/* Overlay */}
+      
       {abierto && (
         <div
           className="fixed inset-0 z-30 bg-black/30 backdrop-blur-sm"
@@ -86,13 +86,13 @@ export function BarraNavegacion() {
         />
       )}
 
-      {/* Drawer */}
+      
       <aside
         className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col bg-white shadow-2xl transition-transform duration-300 ${
           abierto ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Header del drawer */}
+        
         <div className="flex h-16 items-center justify-between border-b border-crema-200 bg-crema-50 px-5">
           <span className="font-extrabold text-gray-900">
             Food<span className="text-primario-500">Store</span>
@@ -107,7 +107,7 @@ export function BarraNavegacion() {
           </button>
         </div>
 
-        {/* Info de cuenta (si logueado) */}
+        
         {estaAutenticado && cuenta && (
           <div className="border-b border-crema-100 bg-crema-50 px-5 py-4">
             <div className="flex items-center gap-3">
@@ -122,7 +122,7 @@ export function BarraNavegacion() {
           </div>
         )}
 
-        {/* Links de navegación */}
+        
         <nav className="flex-1 overflow-y-auto py-3">
           <EnlaceMenu to="/" onClick={cerrar}>Catálogo</EnlaceMenu>
 
@@ -148,7 +148,7 @@ export function BarraNavegacion() {
           </GuardiaRol>
         </nav>
 
-        {/* Footer del drawer */}
+        
         <div className="border-t border-crema-200 p-4">
           {estaAutenticado ? (
             <button

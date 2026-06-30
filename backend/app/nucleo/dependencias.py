@@ -1,4 +1,3 @@
-"""Dependencias compartidas de FastAPI: autenticacion y autorizacion."""
 from __future__ import annotations
 
 from typing import Callable
@@ -20,12 +19,10 @@ _CREDENCIAL_INVALIDA = HTTPException(
     headers={"WWW-Authenticate": "Bearer"},
 )
 
-
 def obtener_cuenta_activa(
     token: str = Depends(esquema_oauth),
     gestor: GestorTransaccion = Depends(obtener_gestor),
 ) -> Cuenta:
-    """Resuelve la cuenta autenticada a partir del token de acceso."""
     try:
         carga = decodificar_token(token)
         identificador = carga.get("sub")
@@ -45,9 +42,7 @@ def obtener_cuenta_activa(
         )
     return cuenta
 
-
 def perfiles_de_cuenta(gestor: GestorTransaccion, cuenta_id: int) -> list[str]:
-    """Lista los nombres de perfil asignados a una cuenta."""
     consulta = (
         select(Perfil.nombre)
         .join(CuentaPerfil, CuentaPerfil.perfil_id == Perfil.id)
@@ -55,9 +50,7 @@ def perfiles_de_cuenta(gestor: GestorTransaccion, cuenta_id: int) -> list[str]:
     )
     return list(gestor.sesion.exec(consulta).all())
 
-
 def requerir_perfil(*perfiles: str) -> Callable[..., Cuenta]:
-    """Crea una dependencia que exige al menos uno de los perfiles dados."""
 
     def verificador(
         cuenta: Cuenta = Depends(obtener_cuenta_activa),

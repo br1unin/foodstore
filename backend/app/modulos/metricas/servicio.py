@@ -1,4 +1,3 @@
-"""Servicio del modulo de metricas: agregaciones sobre ordenes y cobros."""
 from __future__ import annotations
 
 from collections import defaultdict
@@ -23,10 +22,8 @@ from app.persistencia.entidades.orden import (
 ESTADOS_TERMINALES = {"ENTREGADO", "CANCELADO"}
 ESTADO_ANULADO = "CANCELADO"
 
-
 def _a_utc(valor: datetime) -> datetime:
     return valor if valor.tzinfo else valor.replace(tzinfo=timezone.utc)
-
 
 class ServicioMetricas:
     def __init__(self, sesion: Session) -> None:
@@ -77,7 +74,7 @@ class ServicioMetricas:
             elif periodo == "semana":
                 iso = fecha.isocalendar()
                 clave = f"{iso[0]}-S{iso[1]:02d}"
-            else:  # dia
+            else:
                 clave = fecha.strftime("%Y-%m-%d")
             agrupado[clave][0] += orden.total
             agrupado[clave][1] += 1

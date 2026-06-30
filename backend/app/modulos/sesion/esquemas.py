@@ -1,8 +1,6 @@
-"""Esquemas (DTOs) del modulo de sesion."""
 from __future__ import annotations
 
 from pydantic import BaseModel, EmailStr, Field
-
 
 class RegistroEntrada(BaseModel):
     correo: EmailStr
@@ -11,19 +9,15 @@ class RegistroEntrada(BaseModel):
 
     model_config = {"populate_by_name": True}
 
-
 class InicioSesionEntrada(BaseModel):
     correo: EmailStr
     contrasena: str
 
-
 class RenovarEntrada(BaseModel):
     token_renovacion: str
 
-
 class CerrarEntrada(BaseModel):
     token_renovacion: str
-
 
 class CuentaBasica(BaseModel):
     id: int
@@ -31,13 +25,11 @@ class CuentaBasica(BaseModel):
     nombre_completo: str
     perfiles: list[str] = []
 
-
 class RespuestaToken(BaseModel):
     token_acceso: str
     token_renovacion: str
     tipo: str = "portador"
     cuenta: CuentaBasica
-
 
 class RespuestaAcceso(BaseModel):
     token_acceso: str
